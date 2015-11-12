@@ -1,5 +1,9 @@
 package com.facape;
 
+import br.com.facapegraf.model.Aresta;
+import br.com.facapegraf.model.Grafo;
+import br.com.facapegraf.model.Vertice;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -8,10 +12,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import br.com.facapegraf.model.Aresta;
-import br.com.facapegraf.model.Grafo;
-import br.com.facapegraf.model.Vertice;
 
 public class Dijkstra {
 	
