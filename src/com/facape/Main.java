@@ -1,5 +1,4 @@
-package com.facape;
-
+import br.com.facapegraf.enums.Tipo;
 import br.com.facapegraf.leitu.ConstruGraf;
 import br.com.facapegraf.model.Aresta;
 import br.com.facapegraf.model.Vertice;
@@ -16,35 +15,37 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        List<Aresta> arestas = new ArrayList<Aresta>();
-        HashMap<Aresta, Integer> distancias = new HashMap<Aresta, Integer>();
-
         System.out.println("Endereco: ");
         InputStreamReader r = new InputStreamReader(System.in);
         BufferedReader br = new BufferedReader(r);
         String caminho = br.readLine();
 
-        ConstruGraf cg = new ConstruGraf(caminho);
+        ConstruGraf cg = new ConstruGraf(caminho, Tipo.Digrafo);
 
-        arestas = cg.getGrafo().getArestas();
         List<Vertice> vertices = cg.getGrafo().getVertices();
 
-        System.out.println(cg.matrizToString());
-        for(Aresta a : arestas){
-            System.out.println("Aresta " + a.getV1() + " - " + a.getV2() + " -> " + a.getPeso());
-        }
-
         Dijkstra dijkstra = new Dijkstra(cg.getGrafo());
+        
+        System.out.println("Vertice de saída: ");
+        r = new InputStreamReader(System.in);
+        br = new BufferedReader(r);
+        int v1 = Integer.parseInt(br.readLine());
+        
+        System.out.println("Vertice de chegada: ");
+        r = new InputStreamReader(System.in);
+        br = new BufferedReader(r);
+        int v2 = Integer.parseInt(br.readLine());
 
-        //vertice fonte
-        dijkstra.run(vertices.get(0));
-
-        //coloca o vertice destino como parametro
-        LinkedList<Vertice> menorCaminho = dijkstra.getCaminho(vertices.get(3));
+        LinkedList<Vertice> menorCaminho = dijkstra.getCaminho(vertices.get(v1-1),
+        													   vertices.get(v2-1));
         System.out.println();
-        System.out.print("Caminho: ");
-        for(Vertice vertice : menorCaminho){
-            System.out.print("-> " + vertice);
-        }
+        if (menorCaminho != null) {
+        	System.out.print("Caminho: ");
+        	for(Vertice vertice : menorCaminho){
+        		System.out.print("-> v" + vertice.getValor());
+        	}
+		} else {
+			System.out.println("Sem caminho!");
+		}
     }
 }
